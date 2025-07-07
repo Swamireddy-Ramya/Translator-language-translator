@@ -1,1 +1,116 @@
-code formate
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Real-Time Language Translator</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f7f7f7;
+      margin: 30px;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background-color: #fff;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    textarea, select, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    #output {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e9ecef;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🌍 Real-Time Language Translator</h2>
+
+  <label>Enter Text:</label>
+  <textarea id="inputText" rows="14" placeholder="Type something..."></textarea>
+
+  <label>From Language:</label>
+  <select id="fromLang">
+    <option value="en">English</option>
+    <option value="hi">Hindi</option>
+    <option value="te">Telugu</option>
+    <option value="fr">French</option>
+    <option value="de">German</option>
+    <option value="ta">Tamil</option>
+    <option value="kn">Kanada</option>
+    <option value="ml">Malayalam</option>
+    <option value="ar">Arabic</option>
+    <option value="es">Spanish</option>
+    <option value="it">Italian</option>
+    <option value="ru">Russian</option>
+    <option value="ko">Korean</option>
+    <option value="th">thai</option>
+  </select>
+
+  <label>To Language:</label>
+  <select id="toLang">
+    <option value="hi">Hindi</option>
+    <option value="en">English</option>
+    <option value="te">Telugu</option>
+    <option value="fr">French</option>
+    <option value="de">German</option>
+    <option value="ta">Tamil</option>
+    <option value="kn">Kanada</option>
+    <option value="ml">Malayalam</option>
+    <option value="ar">Arabic</option>
+    <option value="es">Spanish</option>
+    <option value="it">Italian</option>
+    <option value="ru">Russian</option>
+    <option value="ko">Korean</option>
+    <option value="th">thai</option>
+  </select>
+
+  <button onclick="translateText()">Translate</button>
+
+  <div id="output">Translated text will appear here...</div>
+
+  <script>
+    function translateText() {
+      const text = document.getElementById("inputText").value;
+      const fromLang = document.getElementById("fromLang").value;
+      const toLang = document.getElementById("toLang").value;
+
+      const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${fromLang}|${toLang}`;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const translated = data.responseData.translatedText;
+          document.getElementById("output").innerText = translated;
+        })
+        .catch(error => {
+          document.getElementById("output").innerText = "❌ Error occurred. Try again!";
+          console.error("Error:", error);
+        });
+    }
+  </script>
+
+</body>
+</html>
